@@ -142,6 +142,7 @@ def evento_tick_patrulla_con_rutas(vehiculo, indice_vehiculo):
     
     Vehículo 1: suroccidente → noroccidente → nororiente
     Vehículo 2: suroccidente → suroriente → nororiente
+    Vehículo 3: Ubicado alrededor del CAI (centro)
     """
     # Obtener ruta del vehículo
     ruta_key = f"vehiculo_{indice_vehiculo + 1}"

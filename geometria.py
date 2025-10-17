@@ -8,19 +8,21 @@ class Area:
 
     def contiene(self, x, y):
         """Verifica si un punto (x,y) está dentro del área."""
+        #A1: Triángulo
         if self.tipo == "triangulo":
             vertices = self.parametros.get("vertices")
             if vertices and len(vertices) == 3:
                 return self._punto_en_triangulo(x, y, vertices)
             return False
 
+        #A2: Semicírculo
         elif self.tipo == "semicirculo":
             cx, cy = self.parametros.get("centro")
             r = self.parametros.get("radio")
             distancia = math.sqrt((x - cx)**2 + (y - cy)**2)
             # Semicírculo con apertura hacia abajo: y <= cy
             return distancia <= r and y <= cy
-
+        #A3: Rectángulo (CAI)
         elif self.tipo == "rectangulo":
             x_min = self.parametros.get("x_min")
             x_max = self.parametros.get("x_max")
@@ -162,6 +164,19 @@ RUTAS = {
             (5.0, 10.0),   # Suroccidente
             (60.0, 10.0),  # Suroriente
             (60.0, 90.0),  # Nororiente (derecha superior)
+        ]
+    },
+    "vehiculo_3": {
+        "nombre": "Vehículo 3",
+        "rutas": [
+            "circular_cai"                # Patrulla alrededor del CAI
+        ],
+        "puntos_clave": [
+            (32.5, 30.0),  # Centro (CAI)
+            (32.5, 50.0),  # Arriba del CAI
+            (45.0, 30.0),  # Derecha del CAI
+            (32.5, 10.0),  # Abajo del CAI
+            (20.0, 30.0),  # Izquierda del CAI
         ]
     }
 }

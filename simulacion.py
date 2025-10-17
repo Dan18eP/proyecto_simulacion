@@ -1,7 +1,7 @@
 # simulacion.py
 import math
 import time
-from eventos import evento_incidente, evento_llegada_vehiculo, evento_tick_patrulla
+from eventos import evento_incidente, evento_llegada_vehiculo, evento_tick_patrulla, evento_tick_patrulla_con_rutas
 from generadores import gen_reportes
 from geometria import EP1, EP2, MAPA_LIMITES
 
@@ -69,7 +69,8 @@ class Simulacion:
         # Inicializar vehículos en posición suroccidente (según enunciado)
         self.vehiculos = [
             Vehiculo("Vehiculo 1", x=5.0, y=10.0, velocidad=2.5),
-            Vehiculo("Vehiculo 2", x=5.0, y=10.0, velocidad=2.5)
+            Vehiculo("Vehiculo 2", x=5.0, y=10.0, velocidad=2.5),
+            Vehiculo("Vehiculo 3", x= 32.5, y= 30.0, velocidad=2.5) #Vehículo en CAI (centro)
         ]
         
         self.metricas = {
@@ -173,13 +174,13 @@ class Simulacion:
                     print(f"[ALERTA] No hay vehículos disponibles para el incidente en {incidente['zona']}")
 
             # Actualizar posición de vehículos en patrulla (NO acumula distancia)
-            for v in self.vehiculos:
+            for i, v in enumerate(self.vehiculos):
                 if v.estado == "PATRULLANDO":
-                    retorno = evento_tick_patrulla({
+                    retorno = evento_tick_patrulla_con_rutas({
                         "nombre": v.nombre, 
                         "x": v.x, 
                         "y": v.y
-                    })
+                    }, i)
                     
                     if isinstance(retorno, dict):
                         # Actualizar posición del vehículo
